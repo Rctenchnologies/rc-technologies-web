@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hikvision IP Cameras | RC Technologies</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .quantity-select {
+      padding: 5px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="cartIcon" onclick="toggleCart()">
+    <img src="https://img.icons8.com/ios-filled/50/000000/shopping-bag.png" alt="Cart" style="width:26px;height:26px;">
+    <span id="cartCount">0</span>
+  </div>
+  <p id="cartNote">Click the bag to view your items and complete your purchase</p>
+
+  <div id="cartBox" style="display: none;">
+    <h4>🛒 Your Bag</h4>
+    <ul id="cartList"></ul>
+    <button class="checkout-btn" onclick="finishShopping()">🛒 Finish Shopping</button>
+  </div>
+
+  <div class="container">
+    <h1>Hikvision IP Cameras</h1>
+
+    <!-- Product 1 -->
+    <div class="product">
+      <img src="https://mygss.pk/wp-content/uploads/2025/05/download2.jpg" alt="Hikvision 2MP IP Bullet Camera" style="width:100%; border-radius:10px;">
+      <h3>Hikvision 2MP IP Bullet Camera</h3>
+      <p>Model: DS-2CD1023G0E-I | IR | Weatherproof</p>
+      <p><strong>Price: Rs. 8,200</strong></p>
+      <select id="qty1" class="quantity-select">
+        <option value="1">Quantity: 1</option>
+        <option value="2">Quantity: 2</option>
+        <option value="3">Quantity: 3</option>
+        <option value="4">Quantity: 4</option>
+        <option value="5">Quantity: 5</option>
+      </select>
+      <button class="add-btn" onclick="toggleProduct('Hikvision 2MP IP Bullet Camera (Rs. 8200)', 'qty1', 'btn1')" id="btn1">Add to Bag</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product">
+      <img src="https://www.techdeal.com.bd/image/cache/catalog/2021/10/ds-2cd1323g0e-i-1-500x500-1-350x350.jpg.webp" alt="Hikvision 2MP IP Dome Camera" style="width:100%; border-radius:10px;">
+      <h3>Hikvision 2MP IP Dome Camera</h3>
+      <p>Model: DS-2CD1323G0E-I | IR | Night Vision</p>
+      <p><strong>Price: Rs. 8,200</strong></p>
+      <select id="qty2" class="quantity-select">
+        <option value="1">Quantity: 1</option>
+        <option value="2">Quantity: 2</option>
+        <option value="3">Quantity: 3</option>
+        <option value="4">Quantity: 4</option>
+        <option value="5">Quantity: 5</option>
+      </select>
+      <button class="add-btn" onclick="toggleProduct('Hikvision 2MP IP Dome Camera (Rs. 8200)', 'qty2', 'btn2')" id="btn2">Add to Bag</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function toggleProduct(productName, qtyId, btnId) {
+      const qty = document.getElementById(qtyId).value;
+      const productWithQty = `${productName} - Qty: ${qty}`;
+      const index = cart.findIndex(item => item.startsWith(productName));
+
+      if (index === -1) {
+        cart.push(productWithQty);
+        alert(`${productName} added to bag!`);
+      } else {
+        cart.splice(index, 1);
+        alert(`${productName} removed from bag!`);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+      updateButtons();
+    }
+
+    function updateButtons() {
+      const btn1 = document.getElementById("btn1");
+      const btn2 = document.getElementById("btn2");
+      btn1.innerText = cart.some(item => item.startsWith("Hikvision 2MP IP Bullet Camera")) ? "Remove from Bag" : "Add to Bag";
+      btn2.innerText = cart.some(item => item.startsWith("Hikvision 2MP IP Dome Camera")) ? "Remove from Bag" : "Add to Bag";
+    }
+
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cartList");
+      const cartCount = document.getElementById("cartCount");
+      cartList.innerHTML = "";
+      cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `• ${item} <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>`;
+        cartList.appendChild(li);
+      });
+      cartCount.innerText = cart.length;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+      updateButtons();
+    }
+
+    function toggleCart() {
+      const box = document.getElementById("cartBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function finishShopping() {
+      if (cart.length === 0) {
+        alert("Your bag is empty!");
+        return;
+      }
+      const message = `Hello! I want to order the following products:\n- ` + cart.join('\n- ');
+      const encodedMessage = encodeURIComponent(message);
+      const phone = "923152872159";
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+    }
+
+    window.addEventListener("load", () => {
+      cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      updateCartDisplay();
+      updateButtons();
+    });
+  </script>
+</body>
+</html>

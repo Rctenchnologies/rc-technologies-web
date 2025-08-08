@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dahua Analog Cameras | RC Technologies</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .quantity-select {
+      padding: 5px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="cartIcon" onclick="toggleCart()">
+    <img src="https://img.icons8.com/ios-filled/50/000000/shopping-bag.png" alt="Cart" style="width:26px;height:26px;">
+    <span id="cartCount">0</span>
+  </div>
+  <p id="cartNote">Click the bag to view your items and complete your purchase</p>
+
+  <div id="cartBox" style="display: none;">
+    <h4>🛒 Your Bag</h4>
+    <ul id="cartList"></ul>
+    <button class="checkout-btn" onclick="finishShopping()">🛒 Finish Shopping</button>
+  </div>
+
+  <div class="container">
+    <h1>Dahua Analog Cameras</h1>
+
+    <!-- Product 1 -->
+    <div class="product">
+      <img src="https://i.ibb.co/jkW12xWK/dahua-2mp-20-mtrs-hd-bullet-camera-dh-hac-b1a21p-500x500.webp"
+           alt="Dahua Bullet 2MP Analog Camera" style="width:100%; border-radius:10px;">
+      <h3>Dahua Bullet 2MP Analog Camera</h3>
+      <p>Weatherproof | Analog | Model: DH-HAC-B1A21P</p>
+      <p><strong>Price: Rs. 3,200</strong></p>
+      <select id="qty1" class="quantity-select">
+        <option value="1">Quantity: 1</option>
+        <option value="2">Quantity: 2</option>
+        <option value="3">Quantity: 3</option>
+        <option value="4">Quantity: 4</option>
+        <option value="5">Quantity: 5</option>
+      </select>
+      <button class="add-btn" onclick="toggleProduct('Dahua Bullet 2MP Analog Camera (Rs. 3200)', 'qty1', 'btn1')" id="btn1">Add to Bag</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product">
+      <img src="https://img.drz.lazcdn.com/static/pk/p/2602681238db282f698c5f27502d982c.jpg_720x720q80.jpg"
+           alt="Dahua HAC-T1A21 2MP Eyeball Camera" style="width:100%; border-radius:10px;">
+      <h3>Dahua HAC-T1A21 2MP Eyeball Camera</h3>
+      <p>HDCVI | IR | 2.8mm (103°) | Day & Night | NIGHT VISION INDOOR CCTV CAMERA</p>
+      <p><strong>Price: Rs. 3,699</strong></p>
+      <select id="qty2" class="quantity-select">
+        <option value="1">Quantity: 1</option>
+        <option value="2">Quantity: 2</option>
+        <option value="3">Quantity: 3</option>
+        <option value="4">Quantity: 4</option>
+        <option value="5">Quantity: 5</option>
+      </select>
+      <button class="add-btn" onclick="toggleProduct('Dahua HAC-T1A21 2MP Eyeball Camera (Rs. 3699)', 'qty2', 'btn2')" id="btn2">Add to Bag</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function toggleProduct(productName, qtyId, btnId) {
+      const qty = document.getElementById(qtyId).value;
+      const productWithQty = `${productName} - Qty: ${qty}`;
+      const index = cart.findIndex(item => item.startsWith(productName));
+
+      if (index === -1) {
+        cart.push(productWithQty);
+        alert(`${productName} added to bag!`);
+      } else {
+        cart.splice(index, 1);
+        alert(`${productName} removed from bag!`);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+      updateButtons();
+    }
+
+    function updateButtons() {
+      const btn1 = document.getElementById("btn1");
+      const btn2 = document.getElementById("btn2");
+      btn1.innerText = cart.some(item => item.startsWith("Dahua Bullet 2MP Analog Camera")) ? "Remove from Bag" : "Add to Bag";
+      btn2.innerText = cart.some(item => item.startsWith("Dahua HAC-T1A21 2MP Eyeball Camera")) ? "Remove from Bag" : "Add to Bag";
+    }
+
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cartList");
+      const cartCount = document.getElementById("cartCount");
+      cartList.innerHTML = "";
+      cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `• ${item} <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>`;
+        cartList.appendChild(li);
+      });
+      cartCount.innerText = cart.length;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+      updateButtons();
+    }
+
+    function toggleCart() {
+      const box = document.getElementById("cartBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function finishShopping() {
+      if (cart.length === 0) {
+        alert("Your bag is empty!");
+        return;
+      }
+      const message = `Hello! I want to order the following products:
+- ` + cart.join('\n- ');
+      const encodedMessage = encodeURIComponent(message);
+      const phone = "923152872159";
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+    }
+
+    window.addEventListener("load", () => {
+      cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      updateCartDisplay();
+      updateButtons();
+    });
+  </script>
+</body>
+</html>

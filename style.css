@@ -1,0 +1,395 @@
+/* ——————————— Professional CCTV Background with Fade and Animation ——————————— */
+
+body {
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* CCTV camera image patched with dark fade overlay */
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)),
+    url('https://path.to/your/image.jpg') center bottom no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -2;
+}
+
+/* Optional: Subtle animated light overlay to add modern vibe */
+
+body::after {
+  content: "";
+  position: fixed;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle at 50% 30%, rgba(0, 255, 255, 0.08), transparent 70%);
+  animation: drift 15s linear infinite alternate;
+  z-index: -1;
+}
+
+@keyframes drift {
+  to {
+    transform: translate(10%, 5%) rotate(2deg);
+  }
+}
+
+/* —————— Bring other content above background layers —————— */
+* {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes moveLights {
+  0% {
+    background-position: 0% 0%, 100% 100%;
+  }
+  100% {
+    background-position: 100% 100%, 0% 0%;
+  }
+}
+
+
+/* ===== Glow Movement Animation ===== */
+@keyframes glowMove {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translate(-20px, -20px);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(0, 0);
+        opacity: 0.4;
+    }
+}
+
+/* ===== Keep content above background ===== */
+* {
+    position: relative;
+    z-index: 1;
+}
+
+* {
+  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+    url('https://images.unsplash.com/photo-1604147706283-2d4d97f1a7cf?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 30px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00ffee70;
+}
+
+h1 {
+  font-size: 3em;
+  text-align: center;
+  color: #00ffee;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px #00ffee90;
+}
+
+.subtitle {
+  text-align: center;
+  color: #ccc;
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.services button, .brands button {
+  background-color: transparent;
+  color: #00ffee;
+  border: 2px solid #00ffee;
+  padding: 12px 25px;
+  font-size: 1em;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px #00ffee40;
+}
+
+.services button:hover, .brands button:hover {
+  background-color: #00ffee;
+  color: #000;
+  box-shadow: 0 0 20px #00ffee;
+}
+
+.brands {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.form-section {
+  margin-top: 40px;
+  text-align: left;
+}
+
+.form-section h3 {
+  margin-bottom: 15px;
+  color: #00ffee;
+  text-shadow: 0 0 5px #00ffeeaa;
+}
+
+form input, form textarea {
+  width: 100%;
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #00ffee50;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 1em;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+form button {
+  background-color: #00ffee;
+  color: #000;
+  padding: 12px 30px;
+  border: none;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffee70;
+  transition: 0.3s ease;
+}
+
+form button:hover {
+  background-color: #00ddcc;
+  box-shadow: 0 0 25px #00ffee;
+}
+
+.product {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 30px;
+  box-shadow: 0 0 15px #00ffee30;
+  text-align: center;
+}
+
+.product h3 {
+  margin-top: 15px;
+  color: #00ffee;
+}
+
+.product p {
+  margin: 10px 0;
+}
+
+.add-btn {
+  background-color: #00ffee;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+  box-shadow: 0 0 10px #00ffee80;
+}
+
+.add-btn:hover {
+  background-color: #00ddcc;
+}
+
+.checkout-btn {
+  display: block;
+  margin: 40px auto 0;
+  background-color: #00ffee;
+  color: #000;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.1em;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffee80;
+}
+
+.checkout-btn:hover {
+  background-color: #00ddcc;
+}
+
+#cartIcon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(145deg, #00ffee, #00cfcf);
+  border-radius: 50%;
+  box-shadow: 0 0 15px #00ffee99, 0 0 30px #00ffee55 inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 999;
+}
+
+#cartIcon:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+#cartIcon span {
+  font-size: 14px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+  font-weight: bold;
+  box-shadow: 0 0 5px #000;
+}
+
+#cartBox {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: rgba(0,0,0,0.9);
+  padding: 15px;
+  border-radius: 10px;
+  color: #00ffee;
+  box-shadow: 0 0 15px #00ffee50;
+  max-width: 250px;
+  z-index: 998;
+}
+
+#cartBox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+#cartNote {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 5px;
+  color: #aaa;
+  font-style: italic;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  color: #ff4444;
+}
+
+#cartBox h4::after {
+  content: " (Click to finish shopping)";
+  font-size: 12px;
+  color: #aaa;
+  margin-left: 5px;
+  font-style: italic;
+}
+.brand-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.option-card {
+  padding: 20px;
+  background: #333;
+  color: white;
+  text-align: center;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 1.3em;
+  transition: background 0.3s ease;
+}
+
+.option-card:hover {
+  background: #555;
+}
+.quantity-select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #0ff;
+  background-color: #000;
+  color: #0ff;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  transition: 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.quantity-select:hover {
+  background-color: #0ff;
+  color: #000;
+  cursor: pointer;
+}
+.add-to-cart-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-cart-btn:hover {
+  opacity: 0.9;
+}

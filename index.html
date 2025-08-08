@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RC Technologies</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Floating Cart Icon -->
+  <div id="cartIcon" onclick="toggleCart()">
+    <img src="https://img.icons8.com/ios-filled/50/000000/shopping-bag.png" alt="Cart" style="width:26px;height:26px;">
+    <span id="cartCount">0</span>
+  </div>
+  <div id="cartBox" style="display: none;">
+    <h4>🛒 Your Bag</h4>
+    <ul id="cartList"></ul>
+    <button class="checkout-btn" onclick="finishShopping()">🛒 Finish Shopping & Send Order</button>
+  </div>
+
+  <div class="container">
+    <h1>RC Technologies</h1>
+    <p class="subtitle">Your Trusted CCTV & Security Partner</p>
+
+    <h2>Our Services</h2>
+    <div class="services">
+      <button onclick="toggleBrands()">📷 CCTV Camera</button>
+      <div id="brandOptions" class="brands" style="display: none;">
+        <button onclick="window.location.href='dahua.html'">📷 Dahua</button>
+        <button onclick="window.location.href='hikvision.html'">📷 Hikvision</button>
+      </div>
+
+      <button onclick="window.location.href='dvr.html'">📺 DVR</button>
+      <button onclick="window.location.href='nvr.html'">📁 NVR</button>
+      <button onclick="window.location.href='wifi-camera.html'"">📶 Wifi Camera</button>
+      <button onclick="window.location.href='installation.html'">🛠️ Installation</button>
+      <button onclick="window.location.href='maintenance.html'">🔧 Maintenance</button>
+    </div>
+
+    <div class="form-section" id="formSection" style="display: none;">
+      <h3>Order / Inquiry Form</h3>
+      <form>
+        <p><b>Selected Service:</b> <span id="selectedService"></span></p>
+        <input type="text" placeholder="Your Name" required /><br />
+        <input type="tel" placeholder="Phone Number" required /><br />
+        <textarea placeholder="Your Address or Message" required></textarea><br />
+        <button type="submit">Send Inquiry</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function toggleBrands() {
+      const brandDiv = document.getElementById('brandOptions');
+      brandDiv.style.display = brandDiv.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    function selectService(service) {
+      document.getElementById('selectedService').innerText = service;
+      document.getElementById('formSection').style.display = 'block';
+    }
+
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cartList");
+      const cartCount = document.getElementById("cartCount");
+      cartList.innerHTML = "";
+      cart.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerText = `• ${item}`;
+        cartList.appendChild(li);
+      });
+      cartCount.innerText = cart.length;
+    }
+
+    function toggleCart() {
+      const box = document.getElementById("cartBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function finishShopping() {
+      if (cart.length === 0) {
+        alert("Your bag is empty!");
+        return;
+      }
+      const message = `Hello! I want to order the following products:\n- ` + cart.join('\n- ');
+      const encodedMessage = encodeURIComponent(message);
+      const phone = "923152872159";
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+    }
+
+    window.addEventListener("load", () => {
+      const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart = savedCart;
+      updateCartDisplay();
+    });
+  </script>
+  <script>
+    let cart = [];
+
+    function addToCart(productName) {
+      const id = Date.now(); // unique ID
+      cart.push({ id, name: productName });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+      alert(`${productName} added to bag!`);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cartList");
+      const cartCount = document.getElementById("cartCount");
+      cartList.innerHTML = "";
+
+      cart.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          • ${item.name}
+          <button class="remove-btn" onclick="removeFromCart(${item.id})">❌</button>
+        `;
+        cartList.appendChild(li);
+      });
+
+      cartCount.innerText = cart.length;
+    }
+
+    function toggleCart() {
+      const box = document.getElementById("cartBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function finishShopping() {
+      if (cart.length === 0) {
+        alert("Your bag is empty!");
+        return;
+      }
+      const productNames = cart.map(item => item.name);
+      const message = `Hello! I want to order the following products:\n- ` + productNames.join('\n- ');
+      const encodedMessage = encodeURIComponent(message);
+      const phone = "923152872159";
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+    }
+
+    window.addEventListener("load", () => {
+      const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart = savedCart;
+      updateCartDisplay();
+    });
+  </script>
+</body>
+</html>

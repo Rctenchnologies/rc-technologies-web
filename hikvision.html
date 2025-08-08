@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hikvision Cameras | RC Technologies</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="cartIcon" onclick="toggleCart()">
+    <img src="https://img.icons8.com/ios-filled/50/000000/shopping-bag.png" alt="Cart" style="width:26px;height:26px;">
+    <span id="cartCount">0</span>
+  </div>
+  <div id="cartBox" style="display: none;">
+    <h4>🛒 Your Bag</h4>
+    <ul id="cartList"></ul>
+    <button class="checkout-btn" onclick="finishShopping()">🛒 Finish Shopping & Send Order</button>
+  </div>
+
+  <div class="container">
+    <h1>Hikvision CCTV Camera Categories</h1>
+    <p class="subtitle">Select your preferred category</p>
+    <div class="services">
+      <button onclick="window.location.href='hikvision-analog.html'">📺 Analog Cameras</button>
+      <button onclick="window.location.href='hikvision-ip.html'">🌐 IP Cameras</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function addToCart(productName) {
+      const id = Date.now(); // unique ID
+      cart.push({ id, name: productName });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+      alert(`${productName} added to bag!`);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cartList");
+      const cartCount = document.getElementById("cartCount");
+      cartList.innerHTML = "";
+
+      cart.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          • ${item.name}
+          <button class="remove-btn" onclick="removeFromCart(${item.id})">❌</button>
+        `;
+        cartList.appendChild(li);
+      });
+
+      cartCount.innerText = cart.length;
+    }
+
+    function toggleCart() {
+      const box = document.getElementById("cartBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function finishShopping() {
+      if (cart.length === 0) {
+        alert("Your bag is empty!");
+        return;
+      }
+      const productNames = cart.map(item => item.name);
+      const message = `Hello! I want to order the following products:\n- ` + productNames.join('\n- ');
+      const encodedMessage = encodeURIComponent(message);
+      const phone = "923152872159";
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+    }
+
+    window.addEventListener("load", () => {
+      const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart = savedCart;
+      updateCartDisplay();
+    });
+  </script>
+</body>
+</html>

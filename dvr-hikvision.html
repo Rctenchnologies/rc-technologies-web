@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hikvision DVR | RC Technologies</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="cartIcon" onclick="toggleCart()">
+    <img src="https://img.icons8.com/ios-filled/50/000000/shopping-bag.png" alt="Cart" style="width:26px;height:26px;">
+    <span id="cartCount">0</span>
+  </div>
+  <p id="cartNote">Click the bag to view your items and complete your purchase</p>
+
+  <div id="cartBox" style="display: none;">
+    <h4>🛒 Your Bag</h4>
+    <ul id="cartList"></ul>
+    <button class="checkout-btn" onclick="finishShopping()">🛒 Finish Shopping</button>
+  </div>
+
+  <div class="container">
+    <h1>Hikvision DVRs</h1>
+
+    <!-- Product 1 -->
+    <div class="product">
+      <img src="https://imgs.search.brave.com/fNZ0PxkdFsiA84psmUDEdiQ3SmxjW0kkdwpmTFHPGXM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF84/NTA4NjgtTUxWNzAx/OTc0Mjk5MjRfMDYy/MDIzLU8ud2VicA" alt="Dahua 4CH DVR" style="width:100%; border-radius:10px;">
+      <h3>Hikvision 4 Channel DVR</h3>
+      <p>Model: DS-7104HGHI-M1 | Smart Recorder</p>
+      <p><strong>Price: Rs. 8,900</strong></p>
+      <button class="add-btn" onclick="toggleProduct('Hikvision 4CH DVR (Rs. 8,900)')" id="btn1">Add to Bag</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product">
+      <img src="https://imgs.search.brave.com/Nlo9yInf-hUiEBoHRXe5nwnfNXU_LsM51760jMfZ0X0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pdGdh/bGxlcnkuYi1jZG4u/bmV0L3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIyLzA4L0RTLTcx/MDhIR0hJLUsxLTY5/NjUwLmpwZw" alt="Hikvision 8CH DVR" style="width:100%; border-radius:10px;">
+      <h3>Hikvision 8 Channel DVR</h3>
+      <p>Model: DS-7108HGHI-K1 |8 channels and 1 HDD supported DVR H.264+</p>
+      <p><strong>Price: Rs. 12,800</strong></p>
+      <button class="add-btn" onclick="toggleProduct('Hikvision 8CH DVR (Rs. 12,800)')" id="btn2">Add to Bag</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function toggleProduct(productName) {
+      const index = cart.findIndex(item => item === productName);
+      if (index === -1) {
+        cart.push(productName);
+        alert(`${productName} added to bag!`);
+      } else {
+        cart.splice(index, 1);
+        alert(`${productName} removed from bag!`);
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+      updateButtons();
+    }
+
+    function updateButtons() {
+      const btn1 = document.getElementById("btn1");
+      const btn2 = document.getElementById("btn2");
+      btn1.innerText = cart.includes('Hikvision 4CH DVR (Rs. 8,900)') ? "Remove from Bag" : "Add to Bag";
+      btn2.innerText = cart.includes('Hikvision 8CH DVR (Rs. 12,800)') ? "Remove from Bag" : "Add to Bag";
+    }
+
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cartList");
+      const cartCount = document.getElementById("cartCount");
+      cartList.innerHTML = "";
+      cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `• ${item} <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>`;
+        cartList.appendChild(li);
+      });
+      cartCount.innerText = cart.length;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+      updateButtons();
+    }
+
+    function toggleCart() {
+      const box = document.getElementById("cartBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function finishShopping() {
+      if (cart.length === 0) {
+        alert("Your bag is empty!");
+        return;
+      }
+      const message = `Hello! I want to order the following products:\n- ` + cart.join('\n- ');
+      const encodedMessage = encodeURIComponent(message);
+      const phone = "923152872159";
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+    }
+
+    window.addEventListener("load", () => {
+      cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      updateCartDisplay();
+      updateButtons();
+    });
+  </script>
+</body>
+</html>

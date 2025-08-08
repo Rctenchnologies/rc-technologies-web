@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WiFi Cameras | RC Technologies</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .quantity-select, .sdcard-select {
+      padding: 5px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 100%;
+    }
+    .product { border: 1px solid #0ff; border-radius:10px; padding:15px; margin-bottom:20px; background:#111; color:#0ff; }
+    .container h1 { text-align:center; margin-bottom:20px; }
+  </style>
+</head>
+<body>
+  <div id="cartIcon" onclick="toggleCart()">
+    <img src="https://img.icons8.com/ios-filled/50/000000/shopping-bag.png" alt="Cart" style="width:26px;height:26px;">
+    <span id="cartCount">0</span>
+  </div>
+  <p id="cartNote">Click the bag to view your items and complete your purchase</p>
+  <div id="cartBox" style="display:none;">
+    <h4>🛒 Your Bag</h4><ul id="cartList"></ul>
+    <button class="checkout-btn" onclick="finishShopping()">🛒 Finish Shopping</button>
+  </div>
+
+  <div class="container">
+    <h1>WiFi Cameras </h1>
+
+    <!-- IMOU Ranger 2 -->
+    <div class="product">
+      <img src="https://imgs.search.brave.com/dLvOgiN5DXiOp2qcwLK3zgWrBbseuVpkaYGlXLUdyOk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YWxwaGFpbi10ZWNo/LmNvbS9pbWFnZS9j/YWNoZS9jYXRhbG9n/L3Byb2R1Y3RzL2Nh/bWVyYXMvaW1hdS1y/YW5nZXIvODY3M0E5/MzVEOTQzNDQyNDg3/MTAyOTlCNzM3MkQz/MzEtNjE1eDQxMGgu/cG5n" alt="IMOU Ranger 2" style="width:100%;border-radius:10px;">
+      <h3>IMOU Ranger 2</h3><p>2MP PTZ • Dual Audio • SD Card Support</p><p><strong>Price: Rs. 9,800</strong></p>
+      <select id="qty1" class="quantity-select" onchange="updateTotal('price1', 'qty1', 'sd1', 'total1')">
+        <option value="1">Quantity: 1</option><option value="2">Quantity: 2</option><option value="3">Quantity: 3</option>
+      </select>
+      <select id="sd1" class="sdcard-select" onchange="updateTotal('price1', 'qty1', 'sd1', 'total1')">
+        <option value="0">No SD Card (0)</option>
+        <option value="1399">8 GB (Rs. 1399)</option>
+        <option value="1899">16 GB (Rs. 1899)</option>
+        <option value="1999">32 GB (Rs. 1999)</option>
+        <option value="2200">64 GB (Rs. 2200)</option>
+        <option value="2690">128 GB (Rs. 2690)</option>
+      </select>
+      <p>Total: Rs. <span id="total1">9800</span></p>
+      <button class="add-btn" onclick="toggleProduct('IMOU Ranger 2', 9800, 'qty1', 'sd1', 'btn1')" id="btn1">Add to Bag</button>
+    </div>
+
+    <!-- EZVIZ C6N 4MP -->
+    <div class="product">
+      <img src="https://imgs.search.brave.com/7ZZM3aBw7C5NKvR0qurwhWC9ny1k_9HeR3lB6RiHEVI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jYW5h/YmVlYmFieS5jb20v/Y2RuL3Nob3AvcHJv/ZHVjdHMvNjk3MTc0/NDIzNzc1Mk1lZDEw/XzUwMHg1MDAuanBn/P3Y9MTY3NDQ5NzA1/Ng" alt="EZVIZ C6N 4MP" style="width:100%;border-radius:10px;">
+      <h3>EZVIZ C6N 4MP Pan & Tilt</h3><p>PTZ • Audio • SD Card Support</p><p><strong>Price: Rs. 14,499</strong></p>
+      <select id="qty2" class="quantity-select" onchange="updateTotal('price2', 'qty2', 'sd2', 'total2')">
+        <option value="1">Quantity: 1</option><option value="2">Quantity: 2</option><option value="3">Quantity: 3</option>
+      </select>
+      <select id="sd2" class="sdcard-select" onchange="updateTotal('price2', 'qty2', 'sd2', 'total2')">
+        <option value="0">No SD Card (0)</option>
+        <option value="1399">8 GB (Rs. 1399)</option>
+        <option value="1899">16 GB (Rs. 1899)</option>
+        <option value="1999">32 GB (Rs. 1999)</option>
+        <option value="2200">64 GB (Rs. 2200)</option>
+        <option value="2690">128 GB (Rs. 2690)</option>
+      </select>
+      <p>Total: Rs. <span id="total2">14499</span></p>
+      <button class="add-btn" onclick="toggleProduct('EZVIZ C6N 4MP', 14499, 'qty2', 'sd2', 'btn2')" id="btn2">Add to Bag</button>
+    </div>
+
+    <!-- Dahua Cube -->
+    <div class="product">
+      <img src="https://imgs.search.brave.com/OnIWgcx9PbKX1NtW-qVRsr7f44oEq1LU5971CHZyhdk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c3dpZnRlY2hpbmRp/YS5pbi9jZG4vc2hv/cC9maWxlcy9kNjYu/anBnP3Y9MTcxMjgy/MjQyNCZ3aWR0aD01/MzM" alt="Dahua Cube" style="width:100%;border-radius:10px;">
+      <h3>Dahua Cube WiFi Camera</h3><p>Audio • No PTZ • SD Card Support</p><p><strong>Price: Rs. 12,300</strong></p>
+      <select id="qty3" class="quantity-select" onchange="updateTotal('price3', 'qty3', 'sd3', 'total3')">
+        <option value="1">Quantity: 1</option><option value="2">Quantity: 2</option><option value="3">Quantity: 3</option>
+      </select>
+      <select id="sd3" class="sdcard-select" onchange="updateTotal('price3', 'qty3', 'sd3', 'total3')">
+        <option value="0">No SD Card (0)</option>
+        <option value="1399">8 GB (Rs. 1399)</option>
+        <option value="1899">16 GB (Rs. 1899)</option>
+        <option value="1999">32 GB (Rs. 1999)</option>
+        <option value="2200">64 GB (Rs. 2200)</option>
+        <option value="2690">128 GB (Rs. 2690)</option>
+      </select>
+      <p>Total: Rs. <span id="total3">12300</span></p>
+      <button class="add-btn" onclick="toggleProduct('Dahua Cube WiFi Camera', 12300, 'qty3', 'sd3', 'btn3')" id="btn3">Add to Bag</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function updateTotal(priceId, qtyId, sdId, totalId) {
+      const base = parseInt(document.getElementById(priceId).innerText || 0);
+      const qty = parseInt(document.getElementById(qtyId).value);
+      const sd = parseInt(document.getElementById(sdId).value);
+      const total = base * qty + sd * qty;
+      document.getElementById(totalId).innerText = total;
+    }
+
+    function toggleProduct(name, basePrice, qtyId, sdId, btnId) {
+      const qty = parseInt(document.getElementById(qtyId).value);
+      const sd = parseInt(document.getElementById(sdId).value);
+      const total = basePrice * qty + sd * qty;
+      const itemId = `${name} x${qty} + SD Rs.${sd} = Rs.${total}`;
+
+      const btn = document.getElementById(btnId);
+      const index = cart.findIndex(item => item.includes(name));
+      if (index === -1) {
+        cart.push(itemId);
+        btn.innerText = "Remove from Bag";
+        alert(`${name} added to cart`);
+      } else {
+        cart.splice(index, 1);
+        btn.innerText = "Add to Bag";
+        alert(`${name} removed from cart`);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cartList");
+      const cartCount = document.getElementById("cartCount");
+      cartList.innerHTML = "";
+      cart.forEach((item, i) => {
+        const li = document.createElement("li");
+        li.innerHTML = `• ${item} <button onclick="removeFromCart(${i})">❌</button>`;
+        cartList.appendChild(li);
+      });
+      cartCount.innerText = cart.length;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+    }
+
+    function toggleCart() {
+      const box = document.getElementById("cartBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function finishShopping() {
+      if (cart.length === 0) return alert("Your bag is empty!");
+      const message = "Hello! I want to order:\n- " + cart.join("\n- ");
+      window.open(`https://wa.me/923152872159?text=${encodeURIComponent(message)}`, "_blank");
+    }
+
+    window.onload = function () {
+      cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      updateCartDisplay();
+    }
+  </script>
+</body>
+</html>
